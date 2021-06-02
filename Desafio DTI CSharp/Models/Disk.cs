@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Desafio_DTI_CSharp.Models
 {
     public class Disk
     {
-        private List<Music> musics { get; }
+        private List<Music> musics;
         private string title;
         private string release;
         private string groupName;
@@ -27,11 +28,16 @@ namespace Desafio_DTI_CSharp.Models
             this.musics = new List<Music>();
         }
 
+        public List<Music> GetMusic()
+        {
+            return this.musics;
+        }
 
-        public bool InsertMusic(Music music)
+
+        public Disk InsertMusic(Music music)
         {
             this.musics.Add(music);
-            return true;
+            return this;
         }
 
         public bool RemoveMusic(Music music)
@@ -50,6 +56,13 @@ namespace Desafio_DTI_CSharp.Models
                 }
             }
             return filtered;
+        }
+
+        public void Print(Disk disk)
+        {
+            Console.WriteLine("Titulo: " + disk.Title);
+            Console.WriteLine("Ano de lançamento: " + disk.Release);
+            Console.WriteLine("Artista/Banda: " + disk.GroupName);
         }
 
     }
