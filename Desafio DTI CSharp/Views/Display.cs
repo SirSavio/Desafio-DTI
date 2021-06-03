@@ -24,8 +24,6 @@ namespace Desafio_DTI_CSharp.Views
             int index = GetAValidInput(true);
             Option optionSelect = (Option) index;
 
-            Console.WriteLine(optionSelect);
-            
             switch (optionSelect)
             {
                 case Option.CA:
@@ -58,16 +56,16 @@ namespace Desafio_DTI_CSharp.Views
 
             try
             {
-                Disk disk = DiskController.Create(title, release, groupName);
-                CollectionController.InsertDisk(disk);
+                Disk disk = new Disk(title, release, groupName);
+                KeyValuePair<int, Disk> ds = DiskController.Create(disk);
                 Console.WriteLine("Tudo certo! Álbum cadastrado!");
-                InsertMusicOnDisk(disk);
+                InsertMusicOnDisk(ds);
                 
                 return true;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Gostaria de tentar novamente?");
                 Console.WriteLine("1) Sim");
                 Console.WriteLine("2) Não");
@@ -77,32 +75,180 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     CreateDisk();
-                }
-                else
-                {
                     return true;
                 }
-            }
 
-            return true;
+                return true;
+            }
         }
     
         public static bool SearchDisk()
         {
+            Console.Clear();
+            Console.Write("Show, o que deseja pesquisar? ");
+            string search = Console.ReadLine();
+            
+            try
+            {
+                Dictionary<int, Disk> disks = DiskController.Search(search);
+                Console.WriteLine("Tudo certo! Encontramos " + disks.Count + " Álbum(ns)\n" );
+
+                foreach (KeyValuePair<int, Disk> disk in disks)
+                {
+                    Console.WriteLine("Álbum "+ disk.Key+1 + ")\n");
+                    DiskController.Print(disk.Value);
+
+                    Console.WriteLine("Músicas:\n");
+
+                    Dictionary<int, Music> musics = DiskController.GetMusics(disk.Key);
+
+                    foreach (KeyValuePair<int, Music> music in musics)
+                    {
+                        string fav = music.Value.IsFavorite ? " (Favorita)" : "";
+                        Console.WriteLine(music.Key+1 + ") " +  music.Value.Title + fav);
+                    }
+                    Console.WriteLine("\n********************/////////********************\n");
+                }
+                Console.ReadLine();
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Gostaria de tentar novamente?");
+                Console.WriteLine("1) Sim");
+                Console.WriteLine("2) Não");
+                
+                int index = GetAValidInput(true, 1, 2);
+
+                if (index == 1)
+                {
+                    SearchDisk();
+                    return true;
+                }
+
+                return true;
+            }
+
+            Console.WriteLine("Gostaria de pesquisar novamente?");
+            Console.WriteLine("1) Sim");
+            Console.WriteLine("2) Não");
+                
+            int again = GetAValidInput(true, 1, 2);
+
+            if (again == 1)
+            {
+                SearchDisk();
+                return true;
+            }
+
             return true;
         }
         
         public static bool SearchMusic()
         {
+            Console.Clear();
+            Console.Write("Show, o que deseja pesquisar? ");
+            string search = Console.ReadLine();
+            
+            try
+            {
+                Dictionary<int, Music> musics = MusicController.Search(search);
+                Console.WriteLine("Tudo certo! Encontramos " + musics.Count + " Música(s)\n" );
+
+                foreach (KeyValuePair<int, Music> music in musics)
+                {
+                    Console.WriteLine("Música "+ (music.Key+1) + ")\n");
+                    MusicController.Print(music.Value);
+
+                    Console.WriteLine("\n********************/////////********************\n");
+                    
+                    KeyValuePair<int, Disk> musicDisk = MusicController.GetMusicDisk(music.Value.IdDisk);
+                    Console.WriteLine("Está no Álbum " + (music.Value.IdDisk+1) + ") " + musicDisk.Value.Title + "\n");
+                    DiskController.Print(musicDisk.Value);
+                }
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Gostaria de tentar novamente?");
+                Console.WriteLine("1) Sim");
+                Console.WriteLine("2) Não");
+                
+                int index = GetAValidInput(true, 1, 2);
+
+                if (index == 1)
+                {
+                    SearchMusic();
+                    return true;
+                }
+
+                return true;
+            }
+
+            Console.WriteLine("Gostaria de pesquisar novamente?");
+            Console.WriteLine("1) Sim");
+            Console.WriteLine("2) Não");
+                
+            int again = GetAValidInput(true, 1, 2);
+
+            if (again == 1)
+            {
+                SearchMusic();
+                return true;
+            }
+
             return true;
         }
         
         public static bool CreatePlaylist()
         {
+            Console.Clear();
+            Console.WriteLine("Gerando uma playlist de qualidade...\n");
+            Console.WriteLine("A sua playlist é:\n");
+
+            try
+            {
+                Dictionary<int, Music> playlist = MusicController.GeneratePlaylist();
+
+                foreach (KeyValuePair<int, Music> music in playlist)
+                {
+                    Console.WriteLine("Música "+ music.Key+1 + ")\n");
+                    MusicController.Print(music.Value);
+                    KeyValuePair<int, Disk> musicDisk = MusicController.GetMusicDisk(music.Value.IdDisk);
+                    Console.WriteLine("Está no Álbum " + music.Value.IdDisk + ") " + musicDisk.Value.Title + "\n");
+                    Console.WriteLine("\n********************/////////********************\n");
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Gostaria de tentar novamente?");
+                Console.WriteLine("1) Sim");
+                Console.WriteLine("2) Não");
+                
+                int index = GetAValidInput(true, 1, 2);
+
+                if (index == 1)
+                {
+                    CreatePlaylist();
+                    return true;
+                }
+                return true;
+            }
+            
+            Console.WriteLine("\nGostaria de gerar outra?");
+            Console.WriteLine("1) Sim");
+            Console.WriteLine("2) Não");
+            int again = GetAValidInput(true, 1, 2);
+            if (again == 1)
+            {
+                CreatePlaylist();
+            }
             return true;
         }
         
-        public static bool InsertMusicOnDisk(Disk disk)
+        public static bool InsertMusicOnDisk(KeyValuePair<int, Disk> disk)
         {
             Console.Clear();
             Console.WriteLine("Agora vamos cadastrar algumas músicas");
@@ -111,34 +257,19 @@ namespace Desafio_DTI_CSharp.Views
             Console.Write("\nBeleza, e qual a duração (MM:SS)? ");
             string duration = Console.ReadLine();
             Console.Write("\nPor último, é uma música favorita? ");
-            Console.Write("\n0) Não");
-            Console.WriteLine("\n1) Sim");
-            bool isFavorite = bool.TryParse(Console.ReadLine(), out bool j);
+            Console.Write("\n1) Sim");
+            Console.WriteLine("\n2) Não");
+            string favorite = Console.ReadLine();
 
             try
             {
-                Music music = MusicController.Create(title, duration, isFavorite);
-                disk = DiskController.InsertMusicOnDisk(music, disk);
-
-                CollectionController.UpdateDisk(disk);
-
-                List<Music> musics = DiskController.GetMusics(disk);
-
-                List<Disk> dk = CollectionController.GetDisks();
-
-                foreach (Disk d in dk)
-                {
-                    List<Music> ms = d.GetMusic();
-                    foreach (Music m in ms)
-                    {
-                        m.Print(m);
-                    }
-                }
-
+                bool isFavorite = favorite == "1" ? true : false;
+                Music music = new Music(title, duration, isFavorite);
+                DiskController.InsertMusic(disk.Key, music);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 Console.WriteLine("Gostaria de tentar novamente?");
                 Console.WriteLine("1) Sim");
                 Console.WriteLine("2) Não");
@@ -148,14 +279,13 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     InsertMusicOnDisk(disk);
-                }
-                else
-                {
                     return true;
                 }
+
+                return true;
             }
             
-            Console.WriteLine("Adicionar outra música?");
+            Console.WriteLine("\nAdicionar outra música?");
             Console.WriteLine("1) Sim");
             Console.WriteLine("2) Não");
             int again = GetAValidInput(true, 1, 2);

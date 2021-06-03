@@ -1,29 +1,41 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Desafio_DTI_CSharp.Models;
-using Desafio_DTI_CSharp.Validators;
+using Desafio_DTI_CSharp.Models.DAO;
 
 namespace Desafio_DTI_CSharp.Controllers
 {
-    public class DiskController
+    public static class DiskController
     {
-        public static Disk Create(string title, string release, string groupName)
+        public static KeyValuePair<int, Disk> Create(Disk disk)
         {
-            DiskValidator validator = new DiskValidator();
-            validator.Create( title, release, groupName);
-
-            Disk disk = new Disk(title, release, groupName);
-            return disk;
-        }
-
-        public static Disk InsertMusicOnDisk(Music music, Disk disk)
-        {
-            return disk.InsertMusic(music);
+            return DiskDAO.Create(disk);
         }
         
-        public static List<Music> GetMusics(Disk disk)
+        public static Dictionary<int, Music> GetFavoriteMusics(int id)
         {
-            return disk.GetMusic();
+            return DiskDAO.GetFavoriteMusicsInDisk(id);
         }
+        
+        public static Dictionary<int, Music> GetMusics(int id)
+        {
+            return DiskDAO.GetMusicsInDisk(id);
+        }
+        
+        public static void InsertMusic(int id, Music music)
+        {
+            DiskDAO.InsertMusicInDisk(id, music);
+        }
+
+        public static void Print(Disk disk)
+        {
+            DiskDAO.Print(disk);
+        }
+        
+        public static Dictionary<int, Disk> Search(string search)
+        {
+            return DiskDAO.Search(search);
+        }
+        
     }
 }

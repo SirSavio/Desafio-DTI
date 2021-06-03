@@ -11,7 +11,6 @@ namespace Desafio_DTI_CSharp.Validators
                 throw new ArgumentException("Nome do álbum inválido!");
 
             Regex regex = new Regex("^([0-9]?[0-9]):[0-5][0-9]$");
-            Console.WriteLine(duration);
 
             if (!regex.IsMatch(duration)) throw new ArgumentException("Duração inválida!");
             

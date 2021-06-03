@@ -1,32 +1,23 @@
 ﻿using System;
+using Desafio_DTI_CSharp.Validators;
 
 namespace Desafio_DTI_CSharp.Models
 {
     public class Music
     {
-        private string title;
-        private string duration;
-        private bool isFavorite;
-        
+        public int IdDisk {get; set; }
         public string Title { get; set; }
         public string Duration { get; set; }
         public bool IsFavorite { get; set; }
 
         public Music(string title, string duration, bool isFavorite)
         {
+            MusicValidator validator = new MusicValidator();
+            validator.Create(title, duration);
+            
             this.Title = title;
             this.Duration = duration;
-            this.isFavorite = isFavorite;
-        }
-        
-        
-        
-        
-        public void Print(Music music)
-        {
-            Console.WriteLine("Titulo: " + music.Title);
-            Console.WriteLine("Duração: " + music.Duration);
-            Console.WriteLine("É favorita: " + music.IsFavorite);
+            this.IsFavorite = isFavorite;
         }
     }
 }

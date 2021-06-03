@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Desafio_DTI_CSharp.Validators
 {
