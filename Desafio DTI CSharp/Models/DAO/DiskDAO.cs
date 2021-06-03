@@ -17,27 +17,39 @@ namespace Desafio_DTI_CSharp.Models.DAO
 
         public static Dictionary<int, Music> GetFavoriteMusicsInDisk(int idDisk)
         {
-            return DB.MusicDB.Where(music =>
+            Dictionary<int, Music> musics = DB.MusicDB.Where(music =>
             {
                 return music.Value.IdDisk == idDisk && music.Value.IsFavorite;
             }).ToDictionary(music => music.Key, music => music.Value);
-            
+
+            if (musics.Count == 0) throw new ArgumentException("Nenhuma música favorita no álbum!");
+            return musics;
         }
 
         public static Dictionary<int, Music> GetMusicsInDisk(int idDisk)
         {
-            return DB.MusicDB.Where(music =>
+            Dictionary<int, Music> musics = DB.MusicDB.Where(music =>
             {
                 return music.Value.IdDisk == idDisk;
             }).ToDictionary(music => music.Key, music => music.Value);
+
+            if (musics.Count == 0) throw new ArgumentException("Nenhuma música nesse álbum!");
+            else return musics;
         }
 
         public static void InsertMusicInDisk(int idDisk, Music music)
         {
-            Console.WriteLine(idDisk + " ID DO ALBUM");
             music.IdDisk = idDisk;
-            DB.MusicDB.Add(DB.IndexMusic, music);
-            DB.IndexMusic++;
+
+            if (DB.DiskDB.TryGetValue(idDisk, out var i))
+            {
+                DB.MusicDB.Add(DB.IndexMusic, music);
+                DB.IndexMusic++;   
+            }
+            else
+            {
+                throw new ArgumentException("Id do álbum inválido!");
+            }
         }
 
 

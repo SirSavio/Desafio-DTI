@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Desafio_DTI_CSharp.Models;
 using Desafio_DTI_CSharp.Models.DAO;
@@ -39,6 +40,7 @@ namespace Desafio_DTI_CSharp.Controllers
         
         public static Dictionary<int, Disk> Search(string search)
         {
+            if (search.Length == 0) throw new ArgumentException("Informe o que deseja buscar!");
             return DiskDAO.Search(search);
         }
 

@@ -8,7 +8,7 @@ namespace Desafio_DTI_CSharp.Validators
         public bool Create(string title, string duration)
         {
             if (title == null || title == "" || title.Length == 0)
-                throw new ArgumentException("Nome do álbum inválido!");
+                throw new ArgumentException("Nome da música  inválido!");
 
             Regex regex = new Regex("^([0-9]?[0-9]):[0-5][0-9]$");
 

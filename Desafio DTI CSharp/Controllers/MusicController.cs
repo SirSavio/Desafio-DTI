@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Desafio_DTI_CSharp.Models;
 using Desafio_DTI_CSharp.Models.DAO;
 using Desafio_DTI_CSharp.Validators;
@@ -19,6 +20,7 @@ namespace Desafio_DTI_CSharp.Controllers
 
         public static Dictionary<int, Music> Search(string search)
         {
+            if (search.Length == 0) throw new ArgumentException("Informe o que deseja buscar!");
             return MusicDAO.Search(search);
         }
 
