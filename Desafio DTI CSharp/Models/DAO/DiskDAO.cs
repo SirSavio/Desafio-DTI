@@ -34,6 +34,7 @@ namespace Desafio_DTI_CSharp.Models.DAO
 
         public static void InsertMusicInDisk(int idDisk, Music music)
         {
+            Console.WriteLine(idDisk + " ID DO ALBUM");
             music.IdDisk = idDisk;
             DB.MusicDB.Add(DB.IndexMusic, music);
             DB.IndexMusic++;
@@ -52,11 +53,11 @@ namespace Desafio_DTI_CSharp.Models.DAO
             return DB.DiskDB;
         }
         
-        public static Disk GetDisk(int id)
+        public static KeyValuePair<int,Disk> GetDisk(int id)
         {
             if (DB.DiskDB.TryGetValue(id, out var disk))
             {
-                return disk;
+                return new KeyValuePair<int, Disk>(id, disk);
             }
             else
             {
@@ -76,6 +77,31 @@ namespace Desafio_DTI_CSharp.Models.DAO
                 return SanitizeAndVerify(disk.Value.Title, search) ||  SanitizeAndVerify(disk.Value.Release, search) ||
                        SanitizeAndVerify(disk.Value.GroupName, search);
             }).ToDictionary(disk => disk.Key, disk => disk.Value);
+        }
+
+        public static void Remove(int id)
+        {
+            try
+            {
+                if (DB.DiskDB.TryGetValue(id, out var disk))
+                {
+                    DB.DiskDB.Remove(id);
+
+                    foreach ( var aux in DB.MusicDB.Where(music => music.Value.IdDisk == id).ToList() ) {
+                        DB.MusicDB.Remove(aux.Key);
+                    }
+                    
+                }
+                else
+                {
+                    throw new ArgumentException("Id do álbum inválido!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         private static bool SanitizeAndVerify(string str, string _str)

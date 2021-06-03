@@ -42,6 +42,18 @@ namespace Desafio_DTI_CSharp.Models.DAO
             }
         }
 
+        public static void Remove(int id)
+        {
+            if (DB.MusicDB.TryGetValue(id, out var music))
+            {
+                DB.MusicDB.Remove(id);
+            }
+            else
+            {
+                throw new ArgumentException("Id da música inválido!");
+            }
+        }
+
         public static Dictionary<int, Music> GeneratePlaylist()
         {
 
@@ -67,6 +79,8 @@ namespace Desafio_DTI_CSharp.Models.DAO
             if (isFavoriteMaxTime + notFavoriteMaxTIme <= 3600)
             {
                 notFavoriteMusics.ToList().ForEach(music => favoriteMusics[music.Key] = music.Value);
+                Console.WriteLine("Tempo de favorita: " + isFavoriteMaxTime);
+                Console.WriteLine("Tempo de nao favorita: " + notFavoriteMaxTIme);
                 return favoriteMusics;
             }else if (isFavoriteMaxTime < 1800)
             {
@@ -84,6 +98,8 @@ namespace Desafio_DTI_CSharp.Models.DAO
                     }
                     notFavoriteMusics.Remove(music.Key);
                 }
+                Console.WriteLine("Tempo de favorita: " + isFavoriteMaxTime);
+                Console.WriteLine("Tempo de nao favorita: " + notFavoriteMaxTIme);
                 return favoriteMusics;
             }else if (notFavoriteMaxTIme < 1800)
             {
@@ -101,6 +117,8 @@ namespace Desafio_DTI_CSharp.Models.DAO
                     }
                     favoriteMusics.Remove(music.Key);
                 }
+                Console.WriteLine("Tempo de favorita: " + isFavoriteMaxTime);
+                Console.WriteLine("Tempo de nao favorita: " + notFavoriteMaxTIme);
                 return notFavoriteMusics;
             }
             else
@@ -128,6 +146,8 @@ namespace Desafio_DTI_CSharp.Models.DAO
                     }
                     notFavoriteMusics.Remove(music.Key);
                 }
+                Console.WriteLine("Tempo de favorita: " + isFavoriteMaxTime);
+                Console.WriteLine("Tempo de nao favorita: " + notFavoriteMaxTIme);
                 return playlist;
             }
         }
@@ -143,8 +163,5 @@ namespace Desafio_DTI_CSharp.Models.DAO
             return int.Parse(tokens[0]) * 60 + int.Parse(tokens[1]);
         }
         
-        
-
-
     }
 }

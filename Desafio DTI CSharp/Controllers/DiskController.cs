@@ -31,10 +31,25 @@ namespace Desafio_DTI_CSharp.Controllers
         {
             DiskDAO.Print(disk);
         }
+
+        public static KeyValuePair<int, Disk> GetDisk(int id)
+        {
+            return DiskDAO.GetDisk(id);
+        }
         
         public static Dictionary<int, Disk> Search(string search)
         {
             return DiskDAO.Search(search);
+        }
+
+        public static void RemoveDisk(int id)
+        {
+            DiskDAO.Remove(id);
+        }
+
+        public static Dictionary<int, Disk> GetAllDisks()
+        {
+            return DiskDAO.GetAllDisk();
         }
         
     }

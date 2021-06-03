@@ -31,5 +31,10 @@ namespace Desafio_DTI_CSharp.Controllers
         {
             return MusicDAO.GeneratePlaylist();
         }
+
+        public static void RemoveMusic(int id)
+        {
+            MusicDAO.Remove(id);
+        }
     }
 }
