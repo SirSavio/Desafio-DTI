@@ -13,11 +13,6 @@ namespace Desafio_DTI_CSharp.Controllers
             MusicDAO.Print(music);
         }
 
-        public Dictionary<int, Music> GetMusicsDiskId(int idDisk, int idMusic)
-        {
-            return MusicDAO.GetMusicsByDiskId(idDisk);
-        }
-
         public static Dictionary<int, Music> Search(string search)
         {
             if (search.Length == 0) throw new ArgumentException("Informe o que deseja buscar!");

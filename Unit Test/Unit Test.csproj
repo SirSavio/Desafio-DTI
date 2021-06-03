@@ -44,7 +44,6 @@
     <ItemGroup>
         <Compile Include="TestDisk.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="TestDisplay.cs" />
         <Compile Include="TestMusic.cs" />
     </ItemGroup>
     <ItemGroup>

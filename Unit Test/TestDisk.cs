@@ -19,6 +19,9 @@ namespace TestProject1
         public void Inicialize()
         {
             DB.DiskDB = new Dictionary<int, Disk>();
+            DB.MusicDB = new Dictionary<int, Music>();
+
+            DB.IndexMusic = 1;
             DB.IndexDisk = 1;
             Disk disk = new Disk("A", "1985", "C");
             DiskController.Create(disk);

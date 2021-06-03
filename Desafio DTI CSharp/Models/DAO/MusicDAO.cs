@@ -6,14 +6,7 @@ namespace Desafio_DTI_CSharp.Models.DAO
 {
     public static class MusicDAO
     {
-        public static Dictionary<int, Music> GetMusicsByDiskId(int idDisk)
-        {
-            return DB.MusicDB.Where(music =>
-            {
-                return music.Value.IdDisk == idDisk;
-            }).ToDictionary(music => music.Key, music => music.Value);
-        }
-
+        
         public static void Print(Music music)
         {
             string fav = music.IsFavorite ? "Sim" : "Não";
