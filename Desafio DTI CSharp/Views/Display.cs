@@ -50,7 +50,7 @@ namespace Desafio_DTI_CSharp.Views
                     return true;
             }
         }
-        public static void CreateDisk()
+        private static void CreateDisk()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -84,7 +84,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
     
-        public static void SearchDisk()
+        private static void SearchDisk()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -140,7 +140,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void SearchMusic()
+        private static void SearchMusic()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -190,7 +190,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void CreatePlaylist()
+        private static void CreatePlaylist()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -235,7 +235,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void UpdateDisk()
+        private static void UpdateDisk()
         {
             Console.Write("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -303,7 +303,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void InsertMusicInDisk(KeyValuePair<int, Disk> disk)
+        private static void InsertMusicInDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -348,7 +348,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void RemoveMusicInDisk(KeyValuePair<int, Disk> disk)
+        private static void RemoveMusicInDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -391,7 +391,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void RemoveDisk(KeyValuePair<int, Disk> disk)
+        private static void RemoveDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -422,7 +422,7 @@ namespace Desafio_DTI_CSharp.Views
             }
         }
         
-        public static void UpdateDiskBasicData(KeyValuePair<int, Disk> disk)
+        private static void UpdateDiskBasicData(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -433,9 +433,9 @@ namespace Desafio_DTI_CSharp.Views
             Console.Write("\nPor último qual a nova banda/artista? (default: "+disk.Value.GroupName+") ");
             string groupName = Console.ReadLine();
 
-            title = title.Length > 0 ? title : disk.Value.Title;
-            release = release.Length > 0 ? release : disk.Value.Release;
-            groupName = groupName.Length > 0 ? groupName : disk.Value.GroupName;
+            title = !string.IsNullOrEmpty(title) ? title : disk.Value.Title;
+            release = !string.IsNullOrEmpty(title) ? release : disk.Value.Release;
+            groupName = !string.IsNullOrEmpty(title) ? groupName : disk.Value.GroupName;
             
             try
             {
