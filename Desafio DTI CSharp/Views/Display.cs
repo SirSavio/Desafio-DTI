@@ -166,7 +166,7 @@ namespace Desafio_DTI_CSharp.Views
                     Console.WriteLine("Música "+ music.Key + ")\n");
                     MusicController.Print(music.Value);
 
-                    KeyValuePair<int, Disk> musicDisk = MusicController.GetMusicDisk(music.Value.IdDisk);
+                    KeyValuePair<int, Disk> musicDisk = DiskController.GetDisk(music.Value.IdDisk);
                     Console.WriteLine("Está no Álbum " + music.Value.IdDisk + ") " + musicDisk.Value.Title + "\n");
                     DiskController.Print(musicDisk.Value);
                     Console.WriteLine("\n********************/////////********************\n");

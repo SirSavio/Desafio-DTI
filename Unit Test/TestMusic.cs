@@ -61,32 +61,6 @@ namespace TestProject1
         }
 
         [Test]
-        [TestCase(1)]
-        public void GetMusicDisk_True(int id)
-        {
-            MusicController.GetMusicDisk(id);
-            Assert.Pass();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(10)]
-        public void GetMusicDisk_False(int id)
-        {
-            try
-            {
-                MusicController.GetMusicDisk(id);
-            }
-            catch (Exception e)
-            {
-                Assert.Pass(e.Message);
-            }
-
-            Assert.Fail();
-        }
-
-        [Test]
         public void GeneratePlaylist_True()
         {
             MusicController.GeneratePlaylist();

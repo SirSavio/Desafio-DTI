@@ -20,20 +20,10 @@ namespace Desafio_DTI_CSharp.Models.DAO
             {
                 return SanitizeAndVerify(music.Value.Title, search) ||
                        SanitizeAndVerify(DB.DiskDB[music.Value.IdDisk].GroupName, search);
-            }).ToDictionary(music => music.Key, disk => disk.Value);
+            }).ToDictionary(music => music.Key, music => music.Value);
         }
 
-        public static KeyValuePair<int, Disk> GetMusicDisk(int id)
-        {
-            if (DB.MusicDB.TryGetValue(id, out var music))
-            {
-                return new KeyValuePair<int, Disk>(music.IdDisk, DB.DiskDB[music.IdDisk]);
-            }
-            else
-            {
-                throw new ArgumentException("Id do álbum inválido!");
-            }
-        }
+        
 
         public static void Remove(int id)
         {
