@@ -6,9 +6,9 @@ namespace Desafio_DTI_CSharp.Models
     public class Music
     {
         public int IdDisk {get; set; }
-        public string Title { get; set; }
-        public string Duration { get; set; }
-        public bool IsFavorite { get; set; }
+        public string Title { get; }
+        public string Duration { get; }
+        public bool IsFavorite { get; }
 
         public Music(string title, string duration, bool isFavorite)
         {

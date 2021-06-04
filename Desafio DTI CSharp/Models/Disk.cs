@@ -6,9 +6,9 @@ namespace Desafio_DTI_CSharp.Models
 {
     public class Disk
     {
-        public string Title { get; set; }
-        public string Release { get; set; }
-        public string GroupName { get; set; }
+        public string Title { get; }
+        public string Release { get; }
+        public string GroupName { get; }
 
         public Disk(string title, string release, string groupName)
         {
