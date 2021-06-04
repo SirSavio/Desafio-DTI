@@ -77,9 +77,14 @@ namespace Desafio_DTI_CSharp.Models.DAO
             }
         }
         
-        public static Disk UpdateDisk(int id, Disk disk)
+        public static KeyValuePair<int,Disk> UpdateDisk(int id, Disk disk)
         {
-            return disk;
+            if (DB.DiskDB.TryGetValue(id, out var d))
+            {
+                DB.DiskDB[id] = disk;
+                return new KeyValuePair<int, Disk>(id, disk);
+            }
+            else throw new ArgumentException("Id do álbum inválido");
         }
         
         public static Dictionary<int, Disk> Search(string search)

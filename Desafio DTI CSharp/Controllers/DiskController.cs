@@ -53,6 +53,11 @@ namespace Desafio_DTI_CSharp.Controllers
         {
             return DiskDAO.GetAllDisk();
         }
+
+        public static KeyValuePair<int, Disk> UpdateDisk(int id, Disk disk)
+        {
+            return DiskDAO.UpdateDisk(id, disk);
+        }
         
     }
 }

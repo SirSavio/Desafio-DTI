@@ -50,7 +50,7 @@ namespace Desafio_DTI_CSharp.Views
                     return true;
             }
         }
-        public static bool CreateDisk()
+        public static void CreateDisk()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -67,8 +67,6 @@ namespace Desafio_DTI_CSharp.Views
                 KeyValuePair<int, Disk> ds = DiskController.Create(disk);
                 Console.WriteLine("Tudo certo! Álbum cadastrado!");
                 InsertMusicInDisk(ds);
-                
-                return true;
             }
             catch (Exception e)
             {
@@ -82,13 +80,11 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     CreateDisk();
-                    return true;
                 }
-                return true;
             }
         }
     
-        public static bool SearchDisk()
+        public static void SearchDisk()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -129,9 +125,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     SearchDisk();
-                    return true;
                 }
-                return true;
             }
 
             Console.WriteLine("\nGostaria de pesquisar novamente?");
@@ -143,13 +137,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 SearchDisk();
-                return true;
             }
-
-            return true;
         }
         
-        public static bool SearchMusic()
+        public static void SearchMusic()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -184,9 +175,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     SearchMusic();
-                    return true;
                 }
-                return true;
             }
 
             Console.WriteLine("\nGostaria de pesquisar novamente?");
@@ -198,12 +187,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 SearchMusic();
-                return true;
             }
-            return true;
         }
         
-        public static bool CreatePlaylist()
+        public static void CreatePlaylist()
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -235,9 +222,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     CreatePlaylist();
-                    return true;
                 }
-                return true;
             }
             
             Console.WriteLine("\nGostaria de gerar outra?");
@@ -247,12 +232,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 CreatePlaylist();
-                return true;
             }
-            return true;
         }
         
-        public static bool UpdateDisk()
+        public static void UpdateDisk()
         {
             Console.Write("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -274,7 +257,8 @@ namespace Desafio_DTI_CSharp.Views
                 Console.WriteLine("1) Inserir Música");
                 Console.WriteLine("2) Remover Música");
                 Console.WriteLine("3) Remover Álbum");
-                int option =  GetAValidInput(true, 1, 3);
+                Console.WriteLine("4) Atualizar informações básicas");
+                int option =  GetAValidInput(true, 1, 4);
 
                 if (option == 1)
                 {
@@ -283,9 +267,13 @@ namespace Desafio_DTI_CSharp.Views
                 {
                     RemoveMusicInDisk(new KeyValuePair<int, Disk>(index, disks[index]));
                 }
-                else
+                else if(option == 3)
                 {
                     RemoveDisk(new KeyValuePair<int, Disk>(index, disks[index]));
+                }
+                else
+                {
+                    UpdateDiskBasicData(new KeyValuePair<int, Disk>(index, disks[index]));
                 }
             }
             catch (Exception e) 
@@ -300,10 +288,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     UpdateDisk();
-                    return true;
                 }
-
-                return true;
             }
 
             Console.WriteLine("\nGostaria de atualizar outro Álbum?");
@@ -315,13 +300,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 UpdateDisk();
-                return true;
             }
-
-            return true;
         }
         
-        public static bool InsertMusicInDisk(KeyValuePair<int, Disk> disk)
+        public static void InsertMusicInDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -353,9 +335,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     InsertMusicInDisk(disk);
-                    return true;
                 }
-                return true;
             }
             
             Console.WriteLine("\nAdicionar outra música?");
@@ -365,12 +345,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 InsertMusicInDisk(disk);
-                return true;
             }
-            return true;
         }
         
-        public static bool RemoveMusicInDisk(KeyValuePair<int, Disk> disk)
+        public static void RemoveMusicInDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -400,10 +378,7 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     RemoveMusicInDisk(disk);
-                    return true;
                 }
-
-                return true;
             }
             
             Console.WriteLine("\nRemover outra música?");
@@ -413,12 +388,10 @@ namespace Desafio_DTI_CSharp.Views
             if (again == 1)
             {
                 RemoveMusicInDisk(disk);
-                return true;
             }
-            return true;
         }
         
-        public static bool RemoveDisk(KeyValuePair<int, Disk> disk)
+        public static void RemoveDisk(KeyValuePair<int, Disk> disk)
         {
             Console.WriteLine("\n\n\n\n\n\n\n\n");
             Console.Clear();
@@ -439,18 +412,51 @@ namespace Desafio_DTI_CSharp.Views
                 if (index == 1)
                 {
                     UpdateDisk();
-                    return true;
                 }
-                return true;
             }
             Console.WriteLine("\nRemover outro Álbum?");
             int again = GetAValidInput(true, 1, 2, true);
             if (again == 1)
             {
                 UpdateDisk();
-                return true;
             }
-            return true;
+        }
+        
+        public static void UpdateDiskBasicData(KeyValuePair<int, Disk> disk)
+        {
+            Console.WriteLine("\n\n\n\n\n\n\n\n");
+            Console.Clear();
+            Console.Write("Show, qual o novo nome do Álbum? (default: "+disk.Value.Title+") ");
+            string title = Console.ReadLine();
+            Console.Write("\nBeleza, e qual o novo ano de lançamento? (default: "+disk.Value.Release+") ");
+            string release = Console.ReadLine();
+            Console.Write("\nPor último qual a nova banda/artista? (default: "+disk.Value.GroupName+") ");
+            string groupName = Console.ReadLine();
+
+            title = title.Length > 0 ? title : disk.Value.Title;
+            release = release.Length > 0 ? release : disk.Value.Release;
+            groupName = groupName.Length > 0 ? groupName : disk.Value.GroupName;
+            
+            try
+            {
+                Disk newDisk = new Disk(title, release, groupName);
+                KeyValuePair<int, Disk> ds = DiskController.UpdateDisk(disk.Key, newDisk);
+                Console.WriteLine("Tudo certo! Álbum atualizado!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("\nGostaria de tentar novamente?");
+                Console.WriteLine("1) Sim");
+                Console.WriteLine("2) Não");
+                
+                int index = GetAValidInput(true, 1, 2);
+
+                if (index == 1)
+                {
+                    UpdateDiskBasicData(disk);
+                }
+            }
         }
 
         private static int GetAValidInput(bool limit = false, int min = 1, int max = 6, bool trueOrNot = false)
